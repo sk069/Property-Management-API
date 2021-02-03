@@ -1,0 +1,2 @@
+﻿Add-migration Property_obj -context Property_Management_APIDatabase
+Update-Database Property_obj -context Property_Management_APIDatabase
