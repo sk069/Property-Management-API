@@ -12,18 +12,17 @@ namespace Property_Management_API.Models
         public int Id { get; set; }
 
         [Required]
-        public string Customer_Name { get; set; }
-
+        public string Property_Type { get; set; }
         [Required]
-        public string Email { get; set; }
 
+        public string Area { get; set; }
         [Required]
-        public string Phone { get; set; }
 
+        public decimal Price { get; set; }
+        [Required]
 
-        public string Address { get; set; }
+        public string Facilities { get; set; }
 
-        public decimal CV { get; set; }
 
     }
 }
