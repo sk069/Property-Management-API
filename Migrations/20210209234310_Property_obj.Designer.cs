@@ -9,7 +9,7 @@ using Property_Management_API.Data;
 namespace Property_Management_API.Migrations
 {
     [DbContext(typeof(Property_Management_APIDatabase))]
-    [Migration("20210203221331_Property_obj")]
+    [Migration("20210209234310_Property_obj")]
     partial class Property_obj
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -27,21 +27,18 @@ namespace Property_Management_API.Migrations
                         .HasColumnType("int")
                         .UseIdentityColumn();
 
-                    b.Property<string>("Address")
+                    b.Property<string>("Area")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<decimal>("CV")
+                    b.Property<string>("Facilities")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<decimal>("Price")
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<string>("Customer_Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Email")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Phone")
+                    b.Property<string>("Property_Type")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 

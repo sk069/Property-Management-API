@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 </head>
 
-<body style="background-color:aqua,">
+<body style="background-color:aqua;">
     <div>
         <!-- Navigation bar code -->
         <nav class="navbar navbar-expand-lg navbar-dark bg-warning">
@@ -28,7 +28,7 @@
 
         <!-- following division is creating main area of the web page where all books data will display -->
         <div class="container">
-            <div class="row" id="allBooks">
+            <div class="row" id="allproperty">
             </div>
         </div>
     </div>
@@ -47,7 +47,7 @@
                     <form>
                         <div class="form-group">
                             <label for="Property_Type">Property Type</label>
-                            <input type="text" class="form-control" id="property_type" aria-describedby="Property_TypeHelp" placeholder="Property Type">
+                            <input type="text" class="form-control" id="property_Type" aria-describedby="Property_TypeHelp" placeholder="Property Type">
 
                         </div>
                         <div class="form-group">
@@ -68,7 +68,7 @@
 
 
                         </div>
-                        <button type="button" class="btn btn-primary" onclick="addBooks()">Add Books</button>
+                        <button type="button" class="btn btn-primary" onclick="addProperty()">Add Property</button>
                     </form>
                 </div>
                 <div class="modal-footer">
@@ -85,5 +85,68 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 
+    <script>
+        var uri = 'api/Properties';
+
+        //Java script main function so JS start from here
+        $(document).ready(function () {
+            $.getJSON(uri)
+                .done(function (data) {
+                    $("#PropertyTemplate").tmpl(data).appendTo("#allproperty");
+                });
+        });
+        // function to get all books data and show on web page
+        function getAllProperty() {
+            $.getJSON(uri)
+                .done(function (data) {
+                    $("#allproperty").text("");
+                    $("#PropertyTemplate").tmpl(data).appendTo("#allproperty");
+                });
+        }
+
+        // function to add data for new book
+        function addProperty() {
+            var _property_Type = $('#property_Type').val();
+            var _area = $('#area').val();
+            var _price = parseFloat($('#price').val());
+            var _facilities = $('#facilities').val();
+
+            var Property = {
+                property_Type: _property_Type,
+                area: _area,
+                price: _price,
+                facilities: _facilities
+            };
+            $.ajax({
+                type: "POST",
+                url: uri,
+                data: JSON.stringify(Property),
+                contentType: "application/json; charset=utf-8"
+            }).done(function (response) {
+                $("#result").html("Success");
+                getAllProperty();
+            }).fail(function (jqXHR, textStatus) {
+                $("#result").html("An error occured when Adding the bike record.");
+            });
+        }
+
+    </script>
+    <!-- below mentioned code will create the template on the web page to display all books -->
+    <script id="PropertyTemplate" type="text/x-jquery-tmpl">
+        <div class="col-lg-3" style="margin:10px;">
+            <div class="card card text-white bg-dark border-warning mb-3" style="width: 18rem; padding:20px">
+                <div class="card-body">
+                    <h5 class="card-title">Property Type: ${property_Type}</h5>
+                    <p class="card-text">Area Name :  ${area}</p>
+                    <p class="card-text">Price Of Property : ${price}</p>
+                    <p class="card-text">Available Facilities : ${facilities}</p>
+                </div>
+                <span>
+                    <button class="btn btn-primary" onclick="getbookForUpdate('${Id}')" data-toggle="modal" data-target="#UpdateBooks">Update</button>
+                    <a href="#" class="btn btn-danger" onclick="remove('${Id}')">Delete</a>
+                </span>
+            </div>
+        </div>
+    </script>
 </body>
-</html>
+</html >
