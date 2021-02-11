@@ -5,7 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 
 namespace Property_Management_API.Models
-{
+{     //below mentioned code to show all the fields and add all details//
     public class Property
     {
 

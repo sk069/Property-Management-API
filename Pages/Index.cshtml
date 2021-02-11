@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 </head>
 
-<body style="background-color:aqua;">
+<body style="background-color:gold;">
     <div>
         <!-- Navigation bar code -->
         <nav class="navbar navbar-expand-lg navbar-dark bg-warning">
@@ -33,7 +33,7 @@
         </div>
     </div>
 
-    <!-- below mentioned code will create the template to add a new book -->
+    <!-- below mentioned code will create the template to add a new property -->
     <div class="modal" tabindex="-1" role="dialog" id="addproperty">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -80,7 +80,7 @@
     </div>
 
 
-    <!-- below mentioned code will create the template to add a new book -->
+    <!-- below mentioned code will create the template to add a new property -->
     <div class="modal" tabindex="-1" role="dialog" id="updateproperty">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -147,7 +147,7 @@
                     $("#PropertyTemplate").tmpl(data).appendTo("#allproperty");
                 });
         });
-        // function to get all books data and show on web page
+        // function to get all property data and show on web page
         function getAllProperty() {
             $.getJSON(uri)
                 .done(function (data) {
@@ -156,7 +156,7 @@
                 });
         }
 
-        // function to add data for new book
+        // function to add data for new property
         function addProperty() {
             var _property_Type = $('#property_Type').val();
             var _area = $('#area').val();
@@ -175,10 +175,10 @@
                 data: JSON.stringify(Property),
                 contentType: "application/json; charset=utf-8"
             }).done(function (response) {
-                $("#result").html("Success");
+                $("#result").html("Successfully added new property");
                 getAllProperty();
             }).fail(function (jqXHR, textStatus) {
-                $("#result").html("An error occured when Adding the bike record.");
+                $("#result").html("something wrong.");
             });
         }
 
@@ -196,7 +196,7 @@
                 $('#update_facilities').val(response.facilities);
             });
         }
-        // function to update data of the book
+        // function to update data of the property
         function updateproperty() {
             var _property_Type = $('#update_property_Type').val();
             var _area = $('#update_area').val();
@@ -216,14 +216,14 @@
                 data: JSON.stringify(Propertyupdate),
                 contentType: "application/json; charset=utf-8"
             }).done(function (response) {
-                $("#update_result").html("data updated");
+                $("#update_result").html("Data updated");
                 getAllProperty();
             }).fail(function (jqXHR, textStatus) {
-                $("#update_result").html("An error occured when Adding the bike record.");
+                $("#update_result").html("Something wrong.");
             });
         }
 
-        //funtion to delete a particular book based on id
+        //funtion to delete a particular property based on id
         function remove(id) {
             var yes = confirm("Are you sure you want to delete this property?");
             if (yes) {
@@ -231,20 +231,20 @@
                     type: "DELETE",
                     url: uri + "/" + id,
                 }).done(function (response) {
-                    $("#result").html("Deleted");
+                    $("#result").html(" Data Deleted");
                     getAllProperty();
                 }).fail(function (jqXHR, textStatus) {
-                    $("#result").html("An error occured when Adding the bike record.");
+                    $("#result").html("Something Wrong.");
                 });
             }
         }
     </script>
 
 
-    <!-- below mentioned code will create the template on the web page to display all books -->
+    <!-- below mentioned code will create the template on the web page to display all properties -->
     <script id="PropertyTemplate" type="text/x-jquery-tmpl">
-        <div class="col-lg-3" style="margin:10px;">
-            <div class="card card text-white bg-dark border-warning mb-3" style="width: 18rem; padding:20px">
+        <div class="col-lg-4" style="margin:36px;">
+            <div class="card card text-white bg-dark border-warning mb-4" style="width: 26rem; padding:36px">
                 <div class="card-body">
                     <h5 class="card-title">Property Type: ${property_Type}</h5>
                     <p class="card-text">Area Name :  ${area}</p>
