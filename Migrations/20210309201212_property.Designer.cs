@@ -9,8 +9,8 @@ using Property_Management_API.Data;
 namespace Property_Management_API.Migrations
 {
     [DbContext(typeof(Property_Management_APIDatabase))]
-    [Migration("20210209234310_Property_obj")]
-    partial class Property_obj
+    [Migration("20210309201212_property")]
+    partial class property
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
